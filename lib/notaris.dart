@@ -91,8 +91,81 @@ class NotarisPage extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 20), // Berikan jarak antara konten dan tombol
+
+            // Tombol Berita di bagian bawah
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BeritaPage()),
+                  );
+                },
+                child: Text('Berita'),
+              ),
+            ),
+            SizedBox(height: 20), // Berikan jarak di bawah tombol
           ],
         ),
+      ),
+    );
+  }
+}
+
+class BeritaPage extends StatelessWidget {
+  final List<Map<String, String>> beritaList = [
+    {
+      'title': 'Hari Notaris Nasional',
+      'date': '1 Maret 2024',
+      'description': 'Merayakan Hari Notaris Nasional dengan berbagai kegiatan dan seminar.'
+    },
+    {
+      'title': 'Seminar Hukum Properti',
+      'date': '15 Mei 2024',
+      'description': 'Seminar tentang perkembangan terbaru dalam hukum properti.'
+    },
+    {
+      'title': 'Workshop Kontrak Bisnis',
+      'date': '30 Juni 2024',
+      'description': 'Workshop untuk memahami pembuatan kontrak bisnis yang efektif.'
+    },
+    {
+      'title': 'Peringatan HUT Kemerdekaan',
+      'date': '17 Agustus 2024',
+      'description': 'Kegiatan memperingati Hari Kemerdekaan dengan upacara dan lomba.'
+    },
+    {
+      'title': 'Pelatihan Digitalisasi Notaris',
+      'date': '5 September 2024',
+      'description': 'Pelatihan tentang penggunaan teknologi digital dalam pekerjaan notaris.'
+    },
+    {
+      'title': 'Simposium Internasional Notaris',
+      'date': '20 Oktober 2024',
+      'description': 'Simposium internasional yang membahas isu-isu global dalam notaris.'
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Berita Notaris'),
+      ),
+      body: ListView.builder(
+        itemCount: beritaList.length,
+        itemBuilder: (context, index) {
+          final berita = beritaList[index];
+          return Card(
+            margin: EdgeInsets.all(10),
+            child: ListTile(
+              title: Text(berita['title']!),
+              subtitle: Text('${berita['date']}\n${berita['description']}'),
+              isThreeLine: true,
+            ),
+          );
+        },
       ),
     );
   }

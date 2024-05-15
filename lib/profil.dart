@@ -61,9 +61,93 @@ class ProfilePage extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Tambahkan fungsi untuk tombol jadwal pertemuan di sini
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MeetingSchedulePage()),
+                );
               },
               child: Text('Jadwalkan Pertemuan'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MeetingSchedulePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Jadwal Pertemuan'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Center(
+              child: Text(
+                'Jadwalkan Pertemuan',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Nama',
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Email',
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Telepon',
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Tanggal Pertemuan',
+              ),
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2101),
+                );
+                if (pickedDate != null) {
+                  // Do something with the picked date
+                }
+              },
+            ),
+            SizedBox(height: 10),
+            TextField(
+              maxLines: 4,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Catatan',
+              ),
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Tambahkan fungsi untuk submit jadwal pertemuan di sini
+                },
+                child: Text('Submit'),
+              ),
             ),
           ],
         ),

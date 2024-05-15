@@ -1,5 +1,22 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -140,8 +157,99 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
+              // Menambahkan tombol Testimonial
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TestimonialPage()), // Navigasi ke halaman testimoni
+                  );
+                },
+                child: Text('Testimonial'),
+              ),
+              SizedBox(height: 20),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class TestimonialPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Testimoni Pelanggan'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            testimonialContainer(
+              image: 'assets/images/kita.jpeg',
+              testimonial: 'Pelayananannya ramah dan cepat, "recommended".',
+              author: '- Budi Hartono, PT. Abadi Jaya',
+            ),
+            SizedBox(height: 40),
+            testimonialContainer(
+              image: 'assets/images/kita.jpeg',
+              testimonial:
+                  'Kami sudah melakukan kerjasama lebih dari 4 tahun, selama kerjasama tidak pernah mengecewakan dalam pengurusan sertifikat jual beli properti, terimakasih pa ari.',
+              author: '- Raharjo',
+            ),
+            SizedBox(height: 40),
+            testimonialContainer(
+              image: 'assets/images/kita.jpeg',
+              testimonial: 'mantap bagus pelayanan good rating 9/10',
+              author: '- John Doe',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget testimonialContainer({
+    required String image,
+    required String testimonial,
+    required String author,
+  }) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            CircleAvatar(
+              backgroundImage: AssetImage(image),
+              radius: 30,
+            ),
+            SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    testimonial,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    author,
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
