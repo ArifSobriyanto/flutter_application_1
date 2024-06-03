@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/navigasi.dart';
+import 'home.dart';
+import 'login.dart';
+import 'navigasi.dart';
 
-void main(List<String> args) {
-  runApp(myapp());
+void main() {
+  runApp(MyApp());
 }
 
-class myapp extends StatelessWidget {
-  const myapp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Navigasi(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginPage(),
     );
   }
 }

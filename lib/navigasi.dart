@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/home.dart';
-import 'package:flutter_application_1/notaris.dart';
-import 'package:flutter_application_1/ppat.dart';
-import 'package:flutter_application_1/profil.dart';
-import 'package:flutter_application_1/tentangkami.dart';
+import 'home.dart';
+import 'notaris.dart';
+import 'ppat.dart';
+import 'profil.dart';
+import 'tentangkami.dart';
 
 class Navigasi extends StatelessWidget {
-  const Navigasi({Key? key});
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(''),
+          title: Text('Digital Notary Services'),
           backgroundColor: Color.fromARGB(255, 110, 174, 115),
         ),
         body: TabBarView(
@@ -33,6 +31,14 @@ class Navigasi extends StatelessWidget {
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              ),
+            ],
           ),
           child: TabBar(
             tabs: [
@@ -60,7 +66,6 @@ class Navigasi extends StatelessWidget {
             labelColor: Colors.white,
             unselectedLabelColor: Colors.grey[300],
             indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: Colors.white,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),

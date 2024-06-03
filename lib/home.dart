@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
-    );
-  }
-}
+import 'testimonial.dart';
+import 'login.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -30,11 +15,27 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               // Menambahkan gambar di paling atas
-              Image.asset(
-                'assets/images/kantor.png',
-                height: 200, // Sesuaikan tinggi gambar
-                width: double.infinity, // Sesuaikan lebar gambar
-                fit: BoxFit.cover, // Sesuaikan gambar dengan container
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.asset(
+                    'assets/images/kantor.png',
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               SizedBox(height: 20),
               Text(
@@ -103,6 +104,23 @@ class HomePage extends StatelessWidget {
                 child: Text('Testimonial'),
               ),
               SizedBox(height: 20),
+              // Menambahkan tombol Login
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()), // Navigasi ke halaman login
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text('Login'),
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),
@@ -113,113 +131,35 @@ class HomePage extends StatelessWidget {
   Widget infoCard(String imagePath, String title) {
     return Column(
       children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            imagePath,
-            height: 150, // Perpanjang tinggi gambar
-            width: 150, // Sesuaikan lebar gambar
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(height: 5),
         Container(
-          width: 150, // Sesuaikan lebar teks
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 12), // Ukuran teks lebih besar
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class TestimonialPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Testimoni Pelanggan'),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              testimonialContainer(
-                image: 'assets/images/kita.jpeg',
-                testimonial: 'Pelayananannya ramah dan cepat, "recommended".',
-                author: '- Budi Hartono, PT. Abadi Jaya',
-              ),
-              SizedBox(height: 20),
-              testimonialContainer(
-                image: 'assets/images/kita.jpeg',
-                testimonial:
-                    'Kami sudah melakukan kerjasama lebih dari 4 tahun, selama kerjasama tidak pernah mengecewakan dalam pengurusan sertifikat jual beli properti, terimakasih pa ari.',
-                author: '- Raharjo',
-              ),
-              SizedBox(height: 20),
-              testimonialContainer(
-                image: 'assets/images/kita.jpeg',
-                testimonial: 'Mantap bagus pelayanan, good rating 9/10',
-                author: '- John Doe',
+          width: 150,
+          height: 150,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 7,
+                offset: Offset(0, 3),
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget testimonialContainer({
-    required String image,
-    required String testimonial,
-    required String author,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: const Color.fromARGB(255, 159, 156, 156)),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 5,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          CircleAvatar(
-            backgroundImage: AssetImage(image),
-            radius: 30,
-          ),
-          SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  testimonial,
-                  style: TextStyle(fontSize: 16),
-                ),
-                Text(
-                  author,
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ],
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
             ),
           ),
-        ],
-      ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          title,
+          style: TextStyle(fontSize: 12),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

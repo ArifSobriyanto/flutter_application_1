@@ -1,94 +1,68 @@
 import 'package:flutter/material.dart';
 
 class NotarisPage extends StatelessWidget {
+  final Color customColor = Color.fromARGB(255, 110, 174, 115);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Halaman Notaris'),
+        backgroundColor: customColor,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             // Menambahkan gambar di paling atas
-            Image.asset(
-              'assets/images/ppat.jpeg',
-              height: 200, // Sesuaikan tinggi gambar
-              width: double.infinity, // Sesuaikan lebar gambar
-              fit: BoxFit.cover, // Sesuaikan gambar dengan container
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16),
+              ),
+              child: Image.asset(
+                'assets/images/ppat.jpeg',
+                height: 200, // Sesuaikan tinggi gambar
+                width: double.infinity, // Sesuaikan lebar gambar
+                fit: BoxFit.cover, // Sesuaikan gambar dengan container
+              ),
             ),
             SizedBox(height: 20), // Berikan jarak antara gambar dan teks
 
             // Kotak dengan teks Persyaratan Pendirian PT
-            Container(
+            Padding(
               padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Pendirian PT',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'PERSYARATAN PENDIRIAN PT:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    '1. Menyiapkan 3 (tiga) pilihan nama Perusahaan. Tidak boleh dalam Bahasa lain selain Bahasa Indonesia. Tiap nama harus terdiri dari 3 suku kata.',
-                  ),
-                  Text(
-                    '2. Fotokopi KTP dan NPWP Pendiri/Pemegang Saham.',
-                  ),
-                  Text(
-                    '3. Surat Keterangan Sewa Kantor dan fotokopi IMB (bila kantor berbentuk ruko) *wilayah kabupaten/kotamadya lokasi kantor akan dipakai sebagai Domisili Perusahaan pada Anggaran Dasar.',
-                  ),
-                  Text(
-                    '4. Email Perusahaan (mohon disiapkan).',
-                  ),
-                  Text(
-                    '5. Nomor telepon salah satu Direksi penanggung jawab/Dirut/Nomor telepon Perusahaan.',
-                  ),
-                  Text(
-                    '6. Menentukan besaran Modal Dasar Perusahaan *lihat keterangan mengenai Modal Dasar di bawah.',
-                  ),
-                  Text(
-                    '7. Menentukan besaran Modal Disetor, Minimum 25% dari Modal Dasar.',
-                  ),
-                  Text(
-                    '8. Menentukan besaran prosentase saham yang dimiliki masing-masing pemegang saham, dihitung dari besaran Modal Disetor.',
-                  ),
-                  Text(
-                    '9. Menentukan Nama-nama Pengurus PT yaitu: Dewan Direksi dan Dewan Komisaris.',
-                  ),
-                  Text(
-                    '10. Pemegang saham boleh merangkap mengisi jabatan sebagai Direktur atau Komisaris. Tapi satu orang tidak boleh menjabat menjadi Direktur sekaligus Komisaris.',
-                  ),
-                  Text(
-                    '11. Menentukan Modal Dasar berdasarkan ketentuan mengenai SIUP:',
-                  ),
-                  Text(
-                    '    - PT di bidang SIUP umum maupun jasa:',
-                  ),
-                  Text(
-                    '      - SIUP mikro min. Rp. 50.000.000,-.',
-                  ),
-                  Text(
-                    '      - SIUP kecil 51.000.000,- s/d Rp. 500.000.000,-.',
-                  ),
-                  Text(
-                    '      - SIUP Menengah Rp. 501.000.000,- s/d Rp. 10 M.',
-                  ),
-                  Text(
-                    '      - SIUP Besar ≥ 10 M.',
-                  ),
-                ],
+              child: Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey[300]!),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Pendirian PT',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: customColor),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'PERSYARATAN PENDIRIAN PT:',
+                      style: TextStyle(fontWeight: FontWeight.bold, color: customColor),
+                    ),
+                    SizedBox(height: 10),
+                    ..._buildRequirementList(),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 20), // Berikan jarak antara konten dan tombol
@@ -102,6 +76,8 @@ class NotarisPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => BeritaPage()),
                   );
                 },
+                style: ElevatedButton.styleFrom(
+                ),
                 child: Text('Berita'),
               ),
             ),
@@ -110,6 +86,34 @@ class NotarisPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildRequirementList() {
+    List<String> requirements = [
+      '1. Menyiapkan 3 (tiga) pilihan nama Perusahaan. Tidak boleh dalam Bahasa lain selain Bahasa Indonesia. Tiap nama harus terdiri dari 3 suku kata.',
+      '2. Fotokopi KTP dan NPWP Pendiri/Pemegang Saham.',
+      '3. Surat Keterangan Sewa Kantor dan fotokopi IMB (bila kantor berbentuk ruko) *wilayah kabupaten/kotamadya lokasi kantor akan dipakai sebagai Domisili Perusahaan pada Anggaran Dasar.',
+      '4. Email Perusahaan (mohon disiapkan).',
+      '5. Nomor telepon salah satu Direksi penanggung jawab/Dirut/Nomor telepon Perusahaan.',
+      '6. Menentukan besaran Modal Dasar Perusahaan *lihat keterangan mengenai Modal Dasar di bawah.',
+      '7. Menentukan besaran Modal Disetor, Minimum 25% dari Modal Dasar.',
+      '8. Menentukan besaran prosentase saham yang dimiliki masing-masing pemegang saham, dihitung dari besaran Modal Disetor.',
+      '9. Menentukan Nama-nama Pengurus PT yaitu: Dewan Direksi dan Dewan Komisaris.',
+      '10. Pemegang saham boleh merangkap mengisi jabatan sebagai Direktur atau Komisaris. Tapi satu orang tidak boleh menjabat menjadi Direktur sekaligus Komisaris.',
+      '11. Menentukan Modal Dasar berdasarkan ketentuan mengenai SIUP:',
+      '    - PT di bidang SIUP umum maupun jasa:',
+      '      - SIUP mikro min. Rp. 50.000.000,-.',
+      '      - SIUP kecil 51.000.000,- s/d Rp. 500.000.000,-.',
+      '      - SIUP Menengah Rp. 501.000.000,- s/d Rp. 10 M.',
+      '      - SIUP Besar ≥ 10 M.',
+    ];
+    return requirements.map((item) => Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: Text(
+        item,
+        style: TextStyle(fontSize: 16, color: Colors.grey[800]),
+      ),
+    )).toList();
   }
 }
 
@@ -149,9 +153,12 @@ class BeritaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color customColor = Color.fromARGB(255, 110, 174, 115);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Berita Notaris'),
+        backgroundColor: customColor,
       ),
       body: ListView.builder(
         itemCount: beritaList.length,
@@ -159,8 +166,14 @@ class BeritaPage extends StatelessWidget {
           final berita = beritaList[index];
           return Card(
             margin: EdgeInsets.all(10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: ListTile(
-              title: Text(berita['title']!),
+              title: Text(
+                berita['title']!,
+                style: TextStyle(fontWeight: FontWeight.bold, color: customColor),
+              ),
               subtitle: Text('${berita['date']}\n${berita['description']}'),
               isThreeLine: true,
             ),
