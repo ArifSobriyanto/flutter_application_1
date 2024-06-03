@@ -15,6 +15,7 @@ class Navigasi extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(''),
+          backgroundColor: Color.fromARGB(255, 110, 174, 115),
         ),
         body: TabBarView(
           children: [
@@ -60,6 +61,13 @@ class Navigasi extends StatelessWidget {
             unselectedLabelColor: Colors.grey[300],
             indicatorSize: TabBarIndicatorSize.label,
             indicatorColor: Colors.white,
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              color: Colors.green,
+            ),
           ),
         ),
       ),
