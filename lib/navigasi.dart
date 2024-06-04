@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'notaris.dart';
 import 'ppat.dart';
-import 'profil.dart';
+import 'profile.dart';
 import 'tentangkami.dart';
 
 class Navigasi extends StatelessWidget {
+  final bool showSnackbar;
+
+  Navigasi({this.showSnackbar = false});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -17,11 +21,11 @@ class Navigasi extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            HomePage(),
-            ProfilePage(),
+            HomePage(showSnackbar: showSnackbar),
             NotarisPage(),
             PPATPage(),
             TentangKamiPage(),
+            ProfilePage(),
           ],
         ),
         bottomNavigationBar: Container(
@@ -47,10 +51,6 @@ class Navigasi extends StatelessWidget {
                 icon: Icon(Icons.home),
               ),
               Tab(
-                text: 'Profil',
-                icon: Icon(Icons.person),
-              ),
-              Tab(
                 text: 'Notaris',
                 icon: Icon(Icons.account_balance),
               ),
@@ -61,6 +61,10 @@ class Navigasi extends StatelessWidget {
               Tab(
                 text: 'Tentang Kami',
                 icon: Icon(Icons.info),
+              ),
+              Tab(
+                text: 'Profile',
+                icon: Icon(Icons.person),
               ),
             ],
             labelColor: Colors.white,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'navigasi.dart';
-
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -69,7 +68,9 @@ class LoginPage extends StatelessWidget {
                         // Implementasikan logika login di sini
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => Navigasi()),
+                          MaterialPageRoute(
+                            builder: (context) => Navigasi(showSnackbar: true),
+                          ),
                         );
                       },
                       child: Text('Login'),

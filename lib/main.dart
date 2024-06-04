@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 import 'login.dart';
-import 'navigasi.dart';
 
 void main() {
   runApp(MyApp());

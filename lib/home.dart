@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
-import 'testimonial.dart';
-import 'login.dart';
+import 'legalisasi_dokumen.dart';
+import 'tahapan_proses.dart';
 
 class HomePage extends StatelessWidget {
+  final bool showSnackbar;
+
+  HomePage({this.showSnackbar = false});
+
   @override
   Widget build(BuildContext context) {
+    if (showSnackbar) {
+      Future.delayed(Duration.zero, () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Anda sudah login'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      });
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
       body: SingleChildScrollView(
-        child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // Menambahkan gambar di paling atas
+              // Header Image
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -38,88 +51,50 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
+
+              // Header Text
               Text(
                 'INFORMASI',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 10),
-              // Menambahkan 2 foto di bawah header dengan teks
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // Gambar dan teks pertama
-                    infoCard(
+
+              // Info Cards
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LegalisasiDokumenPage()),
+                      );
+                    },
+                    child: infoCard(
                       'assets/images/tanah.jpeg',
                       'Legalisasi Dokumen',
                     ),
-                    SizedBox(width: 10),
-                    // Gambar dan teks kedua
-                    infoCard(
+                  ),
+                  SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TahapanProsesPage()),
+                      );
+                    },
+                    child: infoCard(
                       'assets/images/tanah2.webp',
                       'Tahapan Proses Jual Beli Tanah',
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              // Menambahkan baris kedua dengan 2 foto lagi
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // Gambar ketiga
-                    infoCard(
-                      'assets/images/tanah.jpeg',
-                      'Legalisasi Dokumen',
-                    ),
-                    SizedBox(width: 10),
-                    // Gambar keempat
-                    infoCard(
-                      'assets/images/tanah2.webp',
-                      'Tahapan Proses Jual Beli Tanah',
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              // Menambahkan tombol Testimonial
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TestimonialPage()), // Navigasi ke halaman testimoni
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
                   ),
-                ),
-                child: Text('Testimonial'),
+                ],
               ),
               SizedBox(height: 20),
-              // Menambahkan tombol Login
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()), // Navigasi ke halaman login
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: Text('Login'),
-              ),
+
+              // Testimonial Section
+              TestimonialSection(),
               SizedBox(height: 20),
             ],
           ),
@@ -160,6 +135,93 @@ class HomePage extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ],
+    );
+  }
+}
+
+class TestimonialSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center, // Centering the testimonial text
+      children: [
+        Text(
+          'Testimonial',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 20),
+        TestimonialCard(
+          name: 'Arepp',
+          testimonial: 'Pelayanan sangat memuaskan dan profesional!',
+          imagePath: 'assets/images/kita.jpeg',
+        ),
+        SizedBox(height: 10),
+        TestimonialCard(
+          name: 'Wall',
+          testimonial: 'Proses cepat dan mudah, sangat direkomendasikan!',
+          imagePath: 'assets/images/kita.jpeg',
+        ),
+        SizedBox(height: 10),
+        TestimonialCard(
+          name: 'Predo',
+          testimonial: 'Pengalaman yang luar biasa!',
+          imagePath: 'assets/images/kita.jpeg',
+        ),
+      ],
+    );
+  }
+}
+
+class TestimonialCard extends StatelessWidget {
+  final String name;
+  final String testimonial;
+  final String imagePath;
+
+  TestimonialCard({
+    required this.name,
+    required this.testimonial,
+    required this.imagePath,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage(imagePath),
+              radius: 30,
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    testimonial,
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
